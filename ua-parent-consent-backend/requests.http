@@ -1,0 +1,89 @@
+
+### Register Parent
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Test Parent",
+  "email": "parent.test@gmail.com",
+  "password": "Parent123"
+}
+
+### Login Parent
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "parent.test@gmail.com",
+  "password": "Parent123"
+}
+
+### Access without JWT
+GET http://localhost:8080/api/test/protected
+
+### Access with JWT
+GET http://localhost:8080/api/test/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJlbnQudGVzdEBnbWFpbC5jb20iLCJyb2xlIjoicGFyZW50IiwiaWF0IjoxNzk0MDU2NTI3LCJleHAiOjE3OTQxNDI5Mjd9.DUSvb4jjg7bw5_2DPSWLVsqKjF09-HeUhqKzJXlmy44
+
+### Parent Access
+GET http://localhost:8080/api/parent/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJlbnQudGVzdEBnbWFpbC5jb20iLCJyb2xlIjoicGFyZW50IiwiaWF0IjoxNzk0MDU3NzE3LCJleHAiOjE3OTQxNDQxMTd9.nJydvFxfhBp_N9PduqYsHvAgWSlr2j07V2CeAoGXQLs"
+
+### Parent trying to access Teacher API
+GET http://localhost:8080/api/teacher/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJlbnQudGVzdEBnbWFpbC5jb20iLCJyb2xlIjoicGFyZW50IiwiaWF0IjoxNzk0MDU3NzE3LCJleHAiOjE3OTQxNDQxMTd9.nJydvFxfhBp_N9PduqYsHvAgWSlr2j07V2CeAoGXQLs"
+
+### Admin Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@ua.edu.ph",
+  "password": "meryllejoyce"
+}
+
+### Admin Access Test
+GET http://localhost:8080/api/admin/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1YS5lZHUucGgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTQwNTkwMzAsImV4cCI6MTc5NDE0NTQzMH0.8LwOea4P74-HIg9TA52myPEnQBBBOyjIHuP7BueUQGw
+
+### Admin creates Teacher account
+POST http://localhost:8080/api/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1YS5lZHUucGgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTQwNTkzMjEsImV4cCI6MTc5NDE0NTcyMX0.oIfyaSCorRMMXmG-ol0OKW_0X6FU6LPChAbEtIeIA2U
+Content-Type: application/json
+
+{
+  "fullName": "Test Teacher",
+  "email": "teacher2@ua.edu.ph",
+  "password": "TeacherSecure123!",
+  "role": "teacher"
+}
+
+### Teacher Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "teacher2@ua.edu.ph",
+  "password": "TeacherSecure123!"
+}
+
+### Teacher tries to access Admin API
+GET http://localhost:8080/api/admin/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZWFjaGVyMkB1YS5lZHUucGgiLCJyb2xlIjoidGVhY2hlciIsImlhdCI6MTc5NDA1OTcwMiwiZXhwIjoxNzk0MTQ2MTAyfQ.-RixLb-CWumRhXMYaQ86ODtmlfh7CimfgVaXucnimqE
+
+### Admin - View All Users
+GET http://localhost:8080/api/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1YS5lZHUucGgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTQwNTk5OTMsImV4cCI6MTc5NDE0NjM5M30.uFDmFiOauM9vKZPEdHMZA9xbwk5WN4TersAF-V0bOuU
+
+### Search users
+GET http://localhost:8080/api/admin/users/search?keyword=teacher
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1YS5lZHUucGgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTQwNTk5OTMsImV4cCI6MTc5NDE0NjM5M30.uFDmFiOauM9vKZPEdHMZA9xbwk5WN4TersAF-V0bOuU
+
+### Deactivate Teacher account
+PUT http://localhost:8080/api/admin/users/4/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1YS5lZHUucGgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTQwNTk5OTMsImV4cCI6MTc5NDE0NjM5M30.uFDmFiOauM9vKZPEdHMZA9xbwk5WN4TersAF-V0bOuU
+Content-Type: application/json
+
+{
+  "status": "Active"
+}
