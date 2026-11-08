@@ -1,3 +1,4 @@
+
 package com.yearners.ua_parent_consent_backend.config;
 
 import com.yearners.ua_parent_consent_backend.repository.UserRepository;
@@ -44,7 +45,6 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
 
-                // Return 401 when authentication is missing.
                 .exceptionHandling(exceptions ->
                         exceptions.authenticationEntryPoint(
                                 new HttpStatusEntryPoint(
@@ -74,19 +74,15 @@ public class SecurityConfig {
 
                         .requestMatchers("/error").permitAll()
 
-                        // Parent access
                         .requestMatchers("/api/parent/**")
                         .hasRole("PARENT")
 
-                        // Teacher access
                         .requestMatchers("/api/teacher/**")
                         .hasRole("TEACHER")
 
-                        // Admin access
                         .requestMatchers("/api/admin/**")
                         .hasRole("ADMIN")
 
-                        // Other protected endpoints
                         .anyRequest().authenticated()
                 )
 
@@ -105,7 +101,10 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of(
+                        "http://localhost:5173",
+                        "https://ua-e-parent-consent.vercel.app"
+                )
         );
 
         configuration.setAllowedMethods(
