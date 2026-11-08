@@ -103,12 +103,19 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(
                 List.of(
                         "http://localhost:5173",
-                        "https://ua-e-parent-consent.vercel.app"
+                        "https://ua-e-parent-consent.vercel.app",
+                        "https://ua-e-parent-consent-l0v10m4kq.vercel.app"
                 )
         );
 
         configuration.setAllowedMethods(
-                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                List.of(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "OPTIONS"
+                )
         );
 
         configuration.setAllowedHeaders(
